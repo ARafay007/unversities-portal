@@ -1,0 +1,32 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "A site for students where they can easily search for universities there fees, ranking and programs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ARafay007/unversities-portal.git"
+  },
+  "author": "Abdul Rafay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ARafay007/unversities-portal/issues"
+  },
+  "homepage": "https://github.com/ARafay007/unversities-portal#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.5.3",
+    "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
