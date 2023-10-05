@@ -1,0 +1,20 @@
+.dropdown{
+  display: flex;
+  flex-direction: column;
+  /* background-color: #ff2; */
+  min-height: 30px;
+  width: 260px;
+  margin-top: -14px;
+  border: 1px solid rgba(0, 0, 0, 0.274);
+  border-radius: 4px;
+  padding: 3px;
+}
+.dropdown_hide{
+  display: none;
+}
+.dropdown_items{
+  padding: 5px 2px;
+}
+.dropdown_items:hover{
+  background-color: rgba(0, 0, 0, 0.185);
+}

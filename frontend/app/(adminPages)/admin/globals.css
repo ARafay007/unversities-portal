@@ -1,0 +1,22 @@
+*{
+  box-sizing: border-box;
+  margin:0;
+  padding:0;
+}
+html, body{
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+}
+.main_content_div{
+  height: 100%;
+  width: 90%;
+  margin: auto;
+  padding-top: 20px;
+}
+.hr{
+  background-image: linear-gradient(to right, rgb(37,37,37), rgb(5, 5, 216));
+  height: 1px;
+  margin-top: 10px;
+  border: 0 none;
+}
