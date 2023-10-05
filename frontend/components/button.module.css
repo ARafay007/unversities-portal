@@ -1,0 +1,16 @@
+.btn_container{
+  display: flex;
+  flex-direction: column;
+}
+.btn{
+  height: 30px;
+  padding: 0px 15px;
+  border: 0px;
+  margin: 5px;
+  border-radius: 4px;
+}
+.btn:hover{
+  transform: translate(0px, -5px);
+  box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 5px 0 rgba(0, 0, 0, 0.19);
+  transition: all .1s;
+}

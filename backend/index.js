@@ -10,9 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/admin', routes.AdminRoutes);
-app.use('/university', routes.universityRoutes);
-app.use('/student', routes.studentRoutes);
+app.use('/api/admin', routes.AdminRoutes);
+app.use('/api/university', routes.universityRoutes);
+app.use('/api/student', routes.studentRoutes);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

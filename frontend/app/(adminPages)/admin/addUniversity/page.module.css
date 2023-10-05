@@ -1,0 +1,13 @@
+.course_fee_container{
+  display: flex;
+  width: 530px;
+  /* width: 260px * 2 + 10px; */
+  margin: 5px 0px;
+  /* background-color: gray; */
+}
+.form_column{
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  width: 560px;
+}

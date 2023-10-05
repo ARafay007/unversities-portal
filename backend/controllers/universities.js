@@ -1,4 +1,4 @@
-const universityModel = require('../models/universities');
+const {universityModel} = require('../models/universities');
 const { catchAsync } = require('../util/catchAsync');
 
 class University{
@@ -10,7 +10,7 @@ class University{
 
   addUni = catchAsync(async (req, res) => {
     const {name, category, about, ranking, fee, courses, image} = req.body;
-
+    
     await universityModel.create({name, category, about, ranking, fee, courses, image});
     res.status(200).json({data: 'University has been added'});
   });

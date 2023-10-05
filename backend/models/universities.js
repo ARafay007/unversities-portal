@@ -7,7 +7,7 @@ const universitySchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['Medical', 'Engineering', 'Business', 'Arts'],
+    enum: ['Medical', 'Engineering', 'Business', 'Arts', 'General'],
     required: true,
   },
   about: {
@@ -19,7 +19,7 @@ const universitySchema = new mongoose.Schema({
     required: true,
   },
   fee: [{
-    type: String,
+    type: Number,
     required: true,
   }],
   courses: [{
