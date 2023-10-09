@@ -3,12 +3,12 @@ import { Input } from ".";
 import styles from './dropdown.module.css';
 
 interface dropdownProps{
-  categoryList: string[];
+  list: string[];
   value: string;
   onClick: MouseEventHandler<HTMLSpanElement>;
 }
 
-export const Dropdown: FC<dropdownProps> = ({categoryList, value, ...rest}) => {
+export const Dropdown: FC<dropdownProps> = ({list, value, ...rest}) => {
   const [onHoverDiv, setOnhoverDiv] = useState(false);
 
   return (
@@ -27,7 +27,7 @@ export const Dropdown: FC<dropdownProps> = ({categoryList, value, ...rest}) => {
         value={value}
       />
       <div className={onHoverDiv ? styles.dropdown : styles.dropdown_hide} >
-        {categoryList.map((el: string, index) => (
+        {list.map((el: string, index) => (
           <span key={index} {...rest} className={styles.dropdown_items}>{el}</span>
         ))}
       </div>

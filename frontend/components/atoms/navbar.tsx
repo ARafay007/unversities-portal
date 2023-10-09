@@ -8,14 +8,17 @@ export const Navbar = () => {
         <Link href="/admin/addUniversity" className={styles.nav_link}>
           <li className={styles.nav_li}>Add University</li>
         </Link>
-        <Link href="/admin/medical" className={styles.nav_link}>
+        <Link href="/admin/Medical" className={styles.nav_link}>
           <li className={styles.nav_li}>Medical</li>
         </Link>
-        <Link href="/admin/" className={styles.nav_link}>
+        <Link href="/admin/Engineering" className={styles.nav_link}>
           <li className={styles.nav_li}>Engineering</li>
         </Link>
-        <Link href="/admin/" className={styles.nav_link}>
+        <Link href="/admin/Business" className={styles.nav_link}>
           <li className={styles.nav_li}>Business</li>
+        </Link>
+        <Link href="/admin/General" className={styles.nav_link}>
+          <li className={styles.nav_li}>General</li>
         </Link>
       </ul>
     </nav>

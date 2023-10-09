@@ -10,6 +10,11 @@ const universitySchema = new mongoose.Schema({
     enum: ['Medical', 'Engineering', 'Business', 'Arts', 'General'],
     required: true,
   },
+  province: {
+    type: String,
+    enum: ['Sindh', 'Punjab', 'KPK', 'Balochistan'],
+    required: true,
+  },
   about: {
     type: String,
     required: true,
