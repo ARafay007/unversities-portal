@@ -1,5 +1,5 @@
 'use client';
-import { Loader } from "@/components";
+import { Loader } from "@/components/atoms";
 
 export default () => {
   return <Loader />

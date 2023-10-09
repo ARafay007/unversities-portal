@@ -1,0 +1,17 @@
+.university_details_container{
+  display: grid;
+  grid-template-columns: 95% 5%;
+  border: 1px solid rgba(37,37,37,.4);
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  height: auto;
+}
+.university_detail_options{
+  display: flex;
+  /* flex-direction: column; */
+  height: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  /* background-color: rgb(228, 226, 226); */
+}
