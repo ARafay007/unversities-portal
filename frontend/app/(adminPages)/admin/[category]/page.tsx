@@ -48,6 +48,13 @@ export default ({params: {category}}: {params: {category: string}}) => {
     setUniData(data);
   }
 
+  const fetchUniByCategoryAndProvince = async (province: string) => {
+    setIsLoading(true);
+    const {data} = await getUniverities(category, undefined, province);
+    setUniData(data);
+    setIsLoading(false);
+  }
+
   const onDeleteUni = async (id: string) => {
     setIsLoading(true);
     await deleteUniversity(id);
@@ -57,6 +64,13 @@ export default ({params: {category}}: {params: {category: string}}) => {
   
   return (
     <>
+      <div className={styles.province_list}>
+        <button onClick={() => fetchUniByCategoryAndProvince('undefined')} className={styles.province_list_item}>All</button>
+        <button onClick={() => fetchUniByCategoryAndProvince('Sindh')} className={styles.province_list_item}>Sindh</button>
+        <button onClick={() => fetchUniByCategoryAndProvince('Punjab')} className={styles.province_list_item}>Punjab</button>
+        <button onClick={() => fetchUniByCategoryAndProvince('KPK')} className={styles.province_list_item}>KPK</button>
+        <button onClick={() => fetchUniByCategoryAndProvince('Balochistan')} className={styles.province_list_item}>Balochhistan</button>
+      </div>
       {isLoading && <Loader />}
       <div style={{height: "100%"}}>
         {

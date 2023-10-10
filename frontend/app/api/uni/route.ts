@@ -2,7 +2,8 @@ export async function GET(req: Request){
   const {searchParams} = new URL(req.url);
   const category = searchParams.get('category');
   const id = searchParams.get('id');
-  const resp = await fetch(`http://localhost:4321/api/university/getUniversity/${category}?id=${id}`);
+  const province = searchParams.get('province');
+  const resp = await fetch(`http://localhost:4321/api/university/getUniversity/${category}?id=${id}&province=${province}`);
   const data = await resp.json();
   return Response.json({data});
 }

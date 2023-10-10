@@ -63,7 +63,7 @@ export default ({isEditMode, category, id}: {isEditMode: boolean, category?: str
       about: data[0].about,
       ranking: data[0].ranking,
       category: data[0].category,
-      province: 'Sindh',
+      province: data[0].province,
     });
     const coursesAndFee: courses  = [];
 

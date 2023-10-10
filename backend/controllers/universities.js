@@ -4,10 +4,10 @@ const { catchAsync } = require('../util/catchAsync');
 class University{
   getCategoriesWiseUni = catchAsync(async (req, res) => {
     const {category} = req.params;
-    const {id} = req.query;
+    const {id, province} = req.query;
     let universities;
-    
     if(id !== 'undefined') universities = await universityModel.find({category, _id: id, isActive: true});
+    else if(province !== 'undefined') universities = await universityModel.find({category, province, isActive: true});
     else universities = await universityModel.find({category, isActive: true});
 
     res.status(200).json({data: universities});
