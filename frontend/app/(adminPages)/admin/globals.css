@@ -14,9 +14,3 @@ html, body{
   margin: auto;
   padding-top: 20px;
 }
-.hr{
-  background-image: linear-gradient(to right, rgb(37,37,37), rgb(5, 5, 216));
-  height: 1px;
-  margin-top: 10px;
-  border: 0 none;
-}

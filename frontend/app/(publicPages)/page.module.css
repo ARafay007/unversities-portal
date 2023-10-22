@@ -1,0 +1,56 @@
+.main_image{
+  background-image: linear-gradient(to right, rgba(37, 37, 37, 0.473), rgba(5, 5, 216, 0.5)), url('../../public/priscilla-du-preez-ggeZ9oyI-PE-unsplash-min.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px;
+  width: 100%;
+  color: #fff;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-content: center;
+  padding: 0 50px;
+}
+.registration_div{
+  padding: 20px;
+  width: 300px;
+  border-radius: 5px;
+  background-color: rgba(0,0,0,0.5);
+}
+.top_uni_section{
+  padding: 30px;
+}
+
+.university_details_container{
+  display: grid;
+  grid-template-columns: 90% 10%;
+  border: 1px solid rgba(37,37,37,.4);
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 20px 0;
+  height: auto;
+  width: 40%;
+}
+.university_detail_options{
+  display: flex;
+  /* flex-direction: column; */
+  height: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  /* background-color: rgb(228, 226, 226); */
+}
+.province_list{
+  list-style-type:none;
+  margin-bottom: 40px;
+}
+.province_list_item{
+  padding: 20px 20px;
+  margin: 0 20px;
+  background-color: #fff;
+  border: 0;
+  cursor: pointer;
+}
+.province_list_item:focus{
+  color:blue;
+  border-bottom: 1px solid blue;
+}

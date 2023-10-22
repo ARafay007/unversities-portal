@@ -5,10 +5,12 @@ import styles from './dropdown.module.css';
 interface dropdownProps{
   list: string[];
   value: string;
+  label: string,
+  placeholder: string,
   onClick: MouseEventHandler<HTMLSpanElement>;
 }
 
-export const Dropdown: FC<dropdownProps> = ({list, value, ...rest}) => {
+export const Dropdown: FC<dropdownProps> = ({list, value, label, placeholder, ...rest}) => {
   const [onHoverDiv, setOnhoverDiv] = useState(false);
 
   return (
@@ -19,10 +21,10 @@ export const Dropdown: FC<dropdownProps> = ({list, value, ...rest}) => {
     >
       <Input 
         type="text" 
-        label="University Category" 
+        label={label} 
         name="universityCategory" 
-        placeholder="Select university category..."
-        require={[false, '']} 
+        placeholder={placeholder}
+        require={[false, '']}
         disabled
         value={value}
       />

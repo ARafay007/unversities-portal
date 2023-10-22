@@ -1,3 +1,8 @@
+"use client";
+import { useRouter } from "next/navigation";
 import AddEditUniForm from "@/components/molecules/addEditUniForm"
 
-export default () => <AddEditUniForm isEditMode={false} />
+export default () => {
+  const router = useRouter();
+  return <AddEditUniForm isEditMode={false} router={router} />
+};
