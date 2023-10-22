@@ -1,0 +1,6 @@
+.hr{
+  background-image: linear-gradient(to right, rgb(37,37,37), rgb(5, 5, 216));
+  height: 1px;
+  margin: 10px 0;
+  border: 0 none;
+}

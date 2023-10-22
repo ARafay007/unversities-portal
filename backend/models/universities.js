@@ -23,14 +23,26 @@ const universitySchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  fee: [{
-    type: Number,
-    required: true,
+  programs: [{
+    fee: {
+      type: String,
+      required: true,
+    },
+    course: {
+      type: String,
+      required: true,
+    },
+    discipline: {
+      type: String,
+      required: true,
+    },
   }],
-  courses: [{
-    type: String,
+  adminssionOpen: {
+    type: Boolean,
     required: true,
-  }],
+    default: false,
+  },
+  universityLink: String,
   image: String,
   isActive: {
     type: Boolean,

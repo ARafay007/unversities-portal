@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
+        <Navbar isPublic={false} />
         <Suspense fallback={<Loading />}>
           <div className="main_content_div">
             {children}
