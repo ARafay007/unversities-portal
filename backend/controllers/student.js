@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const studentModel = require('../models/student');
+const {studentModel} = require('../models/student');
 const {catchAsync} = require('../util/catchAsync');
 const AppError = require('../util/AppError');
 
@@ -37,6 +37,12 @@ class Student{
         }
       });
     })
+  });
+
+  registerStudent = catchAsync(async (req, res) => {
+    const {email} = req.body;
+    const resp = await studentModel.create({email});
+    res.status(200).json({data: 'Successfuly registered.'})
   });
 }
 

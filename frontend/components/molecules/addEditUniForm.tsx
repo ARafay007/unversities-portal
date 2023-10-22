@@ -1,8 +1,10 @@
 'use client';
 import { ChangeEvent, FormEvent, MouseEvent, useState, useEffect } from 'react';
-import { Input, TextArea, Button, Dropdown, Loader } from "../atoms";
+import { Input, TextArea, Button, Dropdown, Loader, Divider } from "../atoms";
+import Switch from "react-switch";
 import styles from "./addEditUniForm.module.css";
 import { AddUniversity, getUniverities, updateUniversity } from '@/app/services/university';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 interface statesStructure {
   id?: string;
@@ -11,11 +13,14 @@ interface statesStructure {
   about: string,
   category: string,
   province: string,
+  adminssionOpen: boolean,
+  universityLink: string,
 };
 interface course {
   id: string,
   fee: number,
   course: string,
+  discipline: string,
 }
 
 interface courses extends Array<course> { }
@@ -27,36 +32,45 @@ interface universityPOST{
   about: string;
   ranking: number;
   province: string;
-  fee: number[];
-  courses: string[];
+  adminssionOpen: boolean,
+  universityLink: string,
+  programs: {
+    fee: number,
+    course: string,
+    discipline: string,
+  }[],
 }
 
-export default ({isEditMode, category, id}: {isEditMode: boolean, category?: string, id?: string}) => { 
-
+export default ({isEditMode, category, id, router}: {isEditMode: boolean, category?: string, id?: string, router: AppRouterInstance}) => { 
   const [values, setValue] = useState<statesStructure>({
     name: '',
     about: '',
     ranking: 0,
     category: '',
     province: '',
+    adminssionOpen: false,
+    universityLink: '',
   });
-
+  
   const [courseAndFeeValue, setCourseAndFeeValue] = useState<courses>([{
     id: Math.random().toString(36).slice(2),
     fee: 0,
     course: '',
+    discipline: '',
   }]);
-
+  
+  const [isAdmissionOpen, setIsAdmissionOpen] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if(isEditMode){
       getUniversityDetail();
     }
-  }, [])
+  }, []);
 
   const getUniversityDetail = async () => {
     const {data} = await getUniverities(category as string, id as string);
+
     setValue({
       id: data[0]._id,
       name: data[0].name,
@@ -64,18 +78,23 @@ export default ({isEditMode, category, id}: {isEditMode: boolean, category?: str
       ranking: data[0].ranking,
       category: data[0].category,
       province: data[0].province,
+      adminssionOpen: data[0].adminssionOpen,
+      universityLink: data[0].universityLink,
     });
-    const coursesAndFee: courses  = [];
 
-    for(let i=0; i<data[0].fee.length; i++){
-      coursesAndFee.push({
-        id: Math.random().toString(36).slice(2),
-        fee: data[0].fee[i] as number,
-        course: data[0].courses[i] as string,
-      });
-    }
+    setIsAdmissionOpen(data[0].adminssionOpen);
 
-    setCourseAndFeeValue(coursesAndFee);
+    setCourseAndFeeValue(data[0].programs.map((el: {
+      _id: string,
+      course: string,
+      fee: string,
+      discipline: string,
+    }) => ({
+      id: el._id,
+      course: el.course,
+      fee: el.fee,
+      discipline: el.discipline,
+    })));
   }
 
   const addCourse = (event: MouseEvent) => {
@@ -87,6 +106,7 @@ export default ({isEditMode, category, id}: {isEditMode: boolean, category?: str
         id: Math.random().toString(36).slice(2),
         fee: 0,
         course: '',
+        discipline: '',
       }]);
   };
 
@@ -121,6 +141,14 @@ export default ({isEditMode, category, id}: {isEditMode: boolean, category?: str
               require={[false, 'this is require']}
               placeholder="Fee..."
               onChange={(event) => onCourseAndFeeValuesChange(el.id, 'fee', event)}
+              style={{marginRight: '10px'}}
+            />
+            <Dropdown 
+              list={['Bachelors', 'Masters']} 
+              label="Discipline"
+              value={el.discipline}
+              placeholder='Select Descipline'
+              onClick={(event) => onCourseAndFeeValuesChange(el.id, 'discipline', event)} 
             />
             <Button
               text="Remove"
@@ -146,14 +174,19 @@ export default ({isEditMode, category, id}: {isEditMode: boolean, category?: str
     setValue(state => ({ ...state, [stateName]: value }));
   };
 
-  const onCourseAndFeeValuesChange = (id: string, stateName: string, stateValue: ChangeEvent) => {
-    let value = (stateValue.target as HTMLInputElement).value;
-    const courses = structuredClone(courseAndFeeValue);
+  const onCourseAndFeeValuesChange = (id: string, stateName: string, stateValue: ChangeEvent | MouseEvent) => {
+    let value: string;
 
-    setCourseAndFeeValue(courses.map((el, ind) => {
+    if(stateName === 'discipline') value = (stateValue.target as HTMLSpanElement).innerText;
+    else value = (stateValue.target as HTMLInputElement).value;
+    
+    const courses = structuredClone(courseAndFeeValue);
+    
+    setCourseAndFeeValue(courses.map((el) => {
       if (el.id === id) {
-        if (stateName === 'fee') el[stateName] = +value;
-        if (stateName === 'course') el[stateName] = value;
+        if (stateName === 'fee' && typeof value === 'string') el[stateName] = +value;
+        else if (stateName === 'course' && typeof value === 'string') el[stateName] = value;
+        else if(stateName === 'discipline' && typeof value === 'string') el[stateName] = value;
         return el
       }
       return el;
@@ -168,29 +201,34 @@ export default ({isEditMode, category, id}: {isEditMode: boolean, category?: str
     if(isEditMode){
       const body: universityPOST = { 
         ...values,
-        fee: courseAndFeeValue.map(el => el.fee),
-        courses: courseAndFeeValue.map(el => el.course)
+        adminssionOpen: isAdmissionOpen,
+        programs: courseAndFeeValue.map(el => ({fee: el.fee, course: el.course, discipline: el.discipline}))
       }
+
       await updateUniversity(body);
       setIsLoading(false);
+      router.push(`/admin/${values.category}`);
     }
     else{
       const body: universityPOST = { 
         ...values,
-        fee: courseAndFeeValue.map(el => el.fee),
-        courses: courseAndFeeValue.map(el => el.course)
+        adminssionOpen: isAdmissionOpen,
+        programs: courseAndFeeValue.map(el => ({fee: el.fee, course: el.course, discipline: el.discipline})),
       }
-  
+
       loading = await AddUniversity(body)
       setIsLoading(loading);
+      router.push(`/admin/${values.category}`);
     }
   };
+
+  const onSwitchChhange = () => setIsAdmissionOpen(!isAdmissionOpen);
 
   return (
     <>
       {isLoading && <Loader />}
       <h2>{isEditMode ? "Edit University" : "Add University"}</h2>
-      <hr className="hr" />
+      <Divider />
       <form style={{width: "560px"}} onSubmit={onSubmitForm}>
         <div className={styles.form_column}>
           <Input
@@ -215,14 +253,33 @@ export default ({isEditMode, category, id}: {isEditMode: boolean, category?: str
         <div className={styles.form_column}>
           <Dropdown 
             list={['Medical', 'Engineering', 'Business', 'Arts', 'General']} 
+            label="Category"
+            placeholder='Select Category'
             value={values.category}
             onClick={(event) => onValuesChange('category', event)} 
           />
           <Dropdown 
             list={['Sindh', 'Punjab', 'KPK', 'Balochistan']} 
+            label="Province"
+            placeholder='Select Province'
             value={values.province}
             onClick={(event) => onValuesChange('province', event)} 
           />
+        </div>
+        <div className={styles.form_column}>
+        <Input
+            type="text"
+            name="link"
+            label="University Link"
+            value={values.universityLink}
+            require={[false, 'this is require']}
+            placeholder="University link..."
+            onChange={(event) => onValuesChange('universityLink', event)}
+          />
+          <div>
+            <p>Admission</p>
+            <Switch onChange={onSwitchChhange} checked={isAdmissionOpen} />  
+          </div>
         </div>
         <div className={styles.form_column}>
           <TextArea
@@ -236,7 +293,7 @@ export default ({isEditMode, category, id}: {isEditMode: boolean, category?: str
         </div>
         {printCourseAndFeeFields()}
         <Button
-          text="Add University"
+          text={isEditMode ? "Edit University" : "Add University"}
           style={{ background: 'rgb(5, 5, 216)', color: '#fff', width: '200px' }}
         />
       </form>

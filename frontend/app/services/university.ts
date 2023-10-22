@@ -5,8 +5,28 @@ interface universityPOST{
   about: string;
   ranking: number;
   province: string;
-  fee: number[];
-  courses: string[];
+  adminssionOpen: boolean,
+  programs: {
+    fee: number,
+    course: string,
+    discipline: string,
+  }[],
+}
+
+export const getUniverities = async (category: string, id?: string | null, province?: string | null) => {
+  const resp = await fetch(`http://localhost:3000/api/uni?category=${category}&id=${id}&province=${province}`);
+  const {data} = await resp.json();
+  return data;
+};
+
+export const topUniversities = async () => {
+  const resp = await fetch('http://localhost:3000/api/topUni', {
+    // next: {revalidate: 3000},
+    cache: 'no-store'
+  });
+
+  const {data} = await resp.json();
+  return data;
 }
 
 export const AddUniversity = async (body: universityPOST) => {
@@ -20,12 +40,6 @@ export const AddUniversity = async (body: universityPOST) => {
 
   const {data} = await resp.json();
   return false;
-};
-
-export const getUniverities = async (category: string, id?: string | null, province?: string | null) => {
-  const resp = await fetch(`http://localhost:3000/api/uni?category=${category}&id=${id}&province=${province}`);
-  const {data} = await resp.json();
-  return data;
 };
 
 export const updateUniversity = async (body: universityPOST) => {

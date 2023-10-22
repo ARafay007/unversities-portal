@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const studentSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    // required: true,
   },
   email: {
     type: String,
@@ -11,13 +11,13 @@ const studentSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    // required: true,
   },
   education: String,
   category: {
     type: String,
     enum: ['Medical', 'Engineering', 'Business', 'Arts'],
-    required: true,
+    // required: true,
   },
 });
 

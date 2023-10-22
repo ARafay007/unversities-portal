@@ -1,9 +1,8 @@
 'use client';
-import {useState, useEffect} from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import {getUniverities, deleteUniversity} from '../../../services/university';
-import { Loader } from '@/components/atoms';
+import {getUniverities} from '../../services/university';
 import styles from './page.module.css';
 
 interface uniObject{
@@ -24,48 +23,43 @@ interface uniInterface{
   category: string,
   about: string,
   ranking: number,
-  fee: number[],
-  courses: string[],
+  programs: {fee: string, course: string, discipline: string, _id: string}[];
   isActive: boolean,
   __v: number
 };
 
-export default ({params: {category}}: {params: {category: string}}) => {
-  const [uniData, setUniData] = useState<uniObject[]>();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isFetch, setIsFetch] = useState(false);
+interface universityData {
+  about: string;
+  adminssionOpen: boolean;
+  category: string;
+  isActive: boolean;
+  name: string;
+  programs: {fee: string, course: string, discipline: string, _id: string}[];
+  province: string;
+  ranking: number;
+  __v: number;
+  _id: string;
+};
+
+export default async ({params: {category}}: {params: {category: string}}) => {
+  const [data, setData] = useState<universityData[]>();
 
   useEffect(() => {
-    fetchUni();
+    getData();
   }, []);
-
-  useEffect(() => {
-    fetchUni();
-  }, [isFetch]);
-
-  const fetchUni = async () => {
-    setIsLoading(true);
+  
+  const getData = async () => {
     const {data} = await getUniverities(category);
-    setUniData(data);
-    setIsLoading(false);
+    setData(data);
   }
 
   const fetchUniByCategoryAndProvince = async (province: string) => {
-    setIsLoading(true);
     const {data} = await getUniverities(category, undefined, province);
-    setUniData(data);
-    setIsLoading(false);
-  }
-
-  const onDeleteUni = async (id: string) => {
-    setIsLoading(true);
-    await deleteUniversity(id);
-    setIsLoading(false);
-    setIsFetch(!isFetch);
+    setData(data);
   };
   
   return (
-    <>
+    <div className="center_div">
       <div className={styles.province_list}>
         <button onClick={() => fetchUniByCategoryAndProvince('undefined')} className={styles.province_list_item}>All</button>
         <button onClick={() => fetchUniByCategoryAndProvince('Sindh')} className={styles.province_list_item}>Sindh</button>
@@ -73,27 +67,23 @@ export default ({params: {category}}: {params: {category: string}}) => {
         <button onClick={() => fetchUniByCategoryAndProvince('KPK')} className={styles.province_list_item}>KPK</button>
         <button onClick={() => fetchUniByCategoryAndProvince('Balochistan')} className={styles.province_list_item}>Balochhistan</button>
       </div>
-      {isLoading && <Loader />}
-      <div style={{height: "100%"}}>
+      <div style={{height: "100%"}} >
         {
-          uniData?.length && uniData?.map((uni: uniInterface) => (
+          !data?.length ? <></> : data?.map((uni: uniInterface) => (
             <div className={styles.university_details_container} key={uni._id}>
               <div className={styles.university_details}>
                 <h3>{uni.name}</h3>
                 <p>{uni.about}</p>
               </div>
               <div className={styles.university_detail_options}>
-                <Link href={`/admin/${category}/${uni._id}`} title="Edit">
-                  <Image src='/edit.png' width='20' height='20' alt='edit' />
+                <Link href={`/${category}/${uni._id}`} title="Edit">
+                  Details
                 </Link>
-                <span title="Delete University" onClick={() => onDeleteUni(uni._id)} style={{cursor: 'pointer'}}>
-                  <Image src='/delete.png' width='20' height='20' alt='edit' />
-                </span>
               </div>
             </div>
           ))
         }
       </div>
-    </>
+    </div>
   );
 }
