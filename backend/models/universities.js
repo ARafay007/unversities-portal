@@ -42,6 +42,11 @@ const universitySchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  scholarship: {
+    type: Boolean,
+    requried: true,
+    default: false,
+  },
   universityLink: String,
   image: String,
   isActive: {

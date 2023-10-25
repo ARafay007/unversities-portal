@@ -14,6 +14,7 @@ interface statesStructure {
   category: string,
   province: string,
   adminssionOpen: boolean,
+  scholarship: boolean,
   universityLink: string,
 };
 interface course {
@@ -33,6 +34,7 @@ interface universityPOST{
   ranking: number;
   province: string;
   adminssionOpen: boolean,
+  scholarship: boolean,
   universityLink: string,
   programs: {
     fee: number,
@@ -49,6 +51,7 @@ export default ({isEditMode, category, id, router}: {isEditMode: boolean, catego
     category: '',
     province: '',
     adminssionOpen: false,
+    scholarship: false,
     universityLink: '',
   });
   
@@ -60,6 +63,7 @@ export default ({isEditMode, category, id, router}: {isEditMode: boolean, catego
   }]);
   
   const [isAdmissionOpen, setIsAdmissionOpen] = useState(true);
+  const [isScholarshipOpen, setIsScholarshipOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -79,6 +83,7 @@ export default ({isEditMode, category, id, router}: {isEditMode: boolean, catego
       category: data[0].category,
       province: data[0].province,
       adminssionOpen: data[0].adminssionOpen,
+      scholarship: data[0].scholarship,
       universityLink: data[0].universityLink,
     });
 
@@ -202,6 +207,7 @@ export default ({isEditMode, category, id, router}: {isEditMode: boolean, catego
       const body: universityPOST = { 
         ...values,
         adminssionOpen: isAdmissionOpen,
+        scholarship: isScholarshipOpen,
         programs: courseAndFeeValue.map(el => ({fee: el.fee, course: el.course, discipline: el.discipline}))
       }
 
@@ -213,6 +219,7 @@ export default ({isEditMode, category, id, router}: {isEditMode: boolean, catego
       const body: universityPOST = { 
         ...values,
         adminssionOpen: isAdmissionOpen,
+        scholarship: isScholarshipOpen,
         programs: courseAndFeeValue.map(el => ({fee: el.fee, course: el.course, discipline: el.discipline})),
       }
 
@@ -222,7 +229,9 @@ export default ({isEditMode, category, id, router}: {isEditMode: boolean, catego
     }
   };
 
-  const onSwitchChhange = () => setIsAdmissionOpen(!isAdmissionOpen);
+  const onSwitchChhange = (admissionOrScholarship: boolean) => {
+    admissionOrScholarship ? setIsScholarshipOpen(!isScholarshipOpen) : setIsAdmissionOpen(!isAdmissionOpen);
+  };
 
   return (
     <>
@@ -278,7 +287,7 @@ export default ({isEditMode, category, id, router}: {isEditMode: boolean, catego
           />
           <div>
             <p>Admission</p>
-            <Switch onChange={onSwitchChhange} checked={isAdmissionOpen} />  
+            <Switch onChange={() => onSwitchChhange(false)} checked={isAdmissionOpen} />  
           </div>
         </div>
         <div className={styles.form_column}>
@@ -290,6 +299,10 @@ export default ({isEditMode, category, id, router}: {isEditMode: boolean, catego
             placeholder="About university"
             onChange={(event) => onValuesChange('about', event)}
           />
+          <div>
+            <p>Schollarship</p>
+            <Switch onChange={() => onSwitchChhange(true)} checked={isScholarshipOpen} />  
+          </div>
         </div>
         {printCourseAndFeeFields()}
         <Button

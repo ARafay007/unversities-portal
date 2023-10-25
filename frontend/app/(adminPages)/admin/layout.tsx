@@ -2,6 +2,7 @@ import './globals.css'
 import { Suspense } from 'react';
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google';
+import Auth from './Auth';
 import {Navbar} from "../../../components/atoms/navbar";
 import Loading from './loading';
 
@@ -20,12 +21,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar isPublic={false} />
-        <Suspense fallback={<Loading />}>
-          <div className="main_content_div">
-            {children}
-          </div>
-        </Suspense>
+        <Auth>
+          <Navbar isPublic={false} />
+          <Suspense fallback={<Loading />}>
+            <div className="main_content_div">
+              {children}
+            </div>
+          </Suspense>
+        </Auth>
       </body>
     </html>
   );

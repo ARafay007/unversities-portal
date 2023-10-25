@@ -1,8 +1,12 @@
+'use client';
 import Link from "next/link";
-import { Button } from "./button";
+import { useRouter } from "next/navigation";
+import { Button } from ".";
 import styles from "./navbar.module.css";
 
 export const Navbar = ({isPublic}: {isPublic: boolean}) => {
+  const router = useRouter();
+
   return (
     <nav className={styles.nav}>
         {
@@ -22,6 +26,9 @@ export const Navbar = ({isPublic}: {isPublic: boolean}) => {
             </Link>
             <Link href="/General" className={styles.nav_link}>
               <li className={styles.nav_li}>General</li>
+            </Link>
+            <Link href="/compare" className={styles.nav_link}>
+              <li className={styles.nav_li}>Compare</li>
             </Link>
         </ul>
           : 
@@ -43,7 +50,10 @@ export const Navbar = ({isPublic}: {isPublic: boolean}) => {
               <li className={styles.nav_li}>General</li>
             </Link>
           </ul>
-          <button className={styles.btn}>Logout</button>
+          <Button 
+            onClick={() => {sessionStorage.clear(); router.push('/login');}} 
+            style={{background: "transparent", color: '#fff', fontSize: '18px'}} 
+            text="Logout" />
         </>
       }
     </nav>
