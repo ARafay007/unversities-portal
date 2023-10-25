@@ -6,6 +6,7 @@ interface universityPOST{
   ranking: number;
   province: string;
   adminssionOpen: boolean,
+  scholarship: boolean,
   programs: {
     fee: number,
     course: string,
