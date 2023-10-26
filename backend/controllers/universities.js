@@ -4,6 +4,11 @@ const {studentModel} = require('../models/student');
 const { catchAsync } = require('../util/catchAsync');
 const nodemailer = require('nodemailer');
 class University{
+  getAllUniversities = catchAsync(async (req, res) => {
+    const data = await universityModel.find();
+    res.status(200).json({data});
+  });
+
   getCategoriesWiseUni = catchAsync(async (req, res) => {
     const {category} = req.params;
     const {id, province} = req.query;

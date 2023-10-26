@@ -8,8 +8,9 @@
   border: 1px solid rgba(0, 0, 0, 0.274);
   border-radius: 4px;
   padding: 3px;
-  height: 100px;
-  overflow: auto;
+  min-width: 10px;
+  max-height: 100px;
+  overflow:auto;
 }
 .dropdown_hide{
   display: none;
