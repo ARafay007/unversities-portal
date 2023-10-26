@@ -1,11 +1,13 @@
 import { UniversityComparision } from './universityComparision';
-import styles from './page.module.css';
+import { getAllUniverisities } from '@/app/services/university';
 
-export default () => {
+export default async () => {
+  const {data} = await getAllUniverisities();
+
   return (
     <div className='center_div'>
       <h1>Compare University</h1>
-      <UniversityComparision />
+      <UniversityComparision data={data} />
     </div>
   );
 };

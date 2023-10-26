@@ -14,6 +14,12 @@ interface universityPOST{
   }[],
 }
 
+export const getAllUniverisities = async () => {
+  const resp = await fetch('http://localhost:3000/api/allUni');
+  const {data} = await resp.json();
+  return data;
+};
+
 export const getUniverities = async (category: string, id?: string | null, province?: string | null) => {
   const resp = await fetch(`http://localhost:3000/api/uni?category=${category}&id=${id}&province=${province}`);
   const {data} = await resp.json();
