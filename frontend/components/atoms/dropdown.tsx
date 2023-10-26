@@ -1,13 +1,13 @@
-import { FC, HTMLAttributes, MouseEventHandler, useState} from "react";
+import { FC, MouseEventHandler, useState} from "react";
 import { Input } from ".";
 import styles from './dropdown.module.css';
 
-interface dropdownProps extends HTMLAttributes<HTMLDivElement>{
+interface dropdownProps{
   list: string[];
   value: string;
-  label: string,
-  placeholder: string,
-  // onClick: MouseEventHandler<HTMLSpanElement>;
+  label: string;
+  placeholder: string;
+  onClick: MouseEventHandler<HTMLSpanElement>;
 }
 
 export const Dropdown: FC<dropdownProps> = ({list, value, label, placeholder, ...rest}) => {
