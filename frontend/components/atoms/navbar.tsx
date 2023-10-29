@@ -27,9 +27,9 @@ export const Navbar = ({isPublic}: {isPublic: boolean}) => {
             <Link href="/General" className={styles.nav_link}>
               <li className={styles.nav_li}>General</li>
             </Link>
-            <Link href="/compare" className={styles.nav_link}>
+            {/* <Link href="/compare" className={styles.nav_link}>
               <li className={styles.nav_li}>Compare</li>
-            </Link>
+            </Link> */}
         </ul>
           : 
         <>
