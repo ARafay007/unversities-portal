@@ -1,17 +1,29 @@
 'use client';
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from ".";
+import Image from 'next/image';
 import styles from "./navbar.module.css";
 
 export const Navbar = ({isPublic}: {isPublic: boolean}) => {
   const router = useRouter();
+  const [width, setWidth] = useState(0);
+  const [hide, setHide] = useState(true);
+
+  useEffect(() => {
+    setWidth(window.innerWidth);
+  }, []);
 
   return (
-    <nav className={styles.nav}>
+    <nav className={hide ? styles.nav : styles.hide_nav}>
+      <div className={styles.caret} onClick={() => setHide(!hide)}>
+        <span className={styles.nav_heading}>Universities Portal</span>
+        <Image src={hide ? '/caret-up.png' : '/caret-down.png'} width={30} height={30} alt="caret-up-down" />
+      </div>
         {
           isPublic ? 
-          <ul className={styles.nav_ul}>
+          <ul className={!hide && width < 436 ? styles.hide_nav_ul : styles.nav_ul}>
             <Link href="/" className={styles.nav_link}>
               <li className={styles.nav_li}>Home</li>
             </Link>
