@@ -1,5 +1,5 @@
 export async function POST(req: Request){
-  const resp = await fetch(`${process.env.URL}/api/student/registerStudent`, {
+  const resp = await fetch(`https://fine-tan-slug-yoke.cyclic.app/api/student/registerStudent`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
