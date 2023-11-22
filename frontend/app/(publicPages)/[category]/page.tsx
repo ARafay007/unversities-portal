@@ -41,7 +41,7 @@ interface universityData {
   _id: string;
 };
 
-export default async ({params: {category}}: {params: {category: string}}) => {
+export default ({params: {category}}: {params: {category: string}}) => {
   const [data, setData] = useState<universityData[]>();
 
   useEffect(() => {
@@ -49,12 +49,12 @@ export default async ({params: {category}}: {params: {category: string}}) => {
   }, []);
   
   const getData = async () => {
-    const {data} = await getUniverities(category);
+    const data = await getUniverities(category);
     setData(data);
   }
 
   const fetchUniByCategoryAndProvince = async (province: string) => {
-    const {data} = await getUniverities(category, undefined, province);
+    const data = await getUniverities(category, undefined, province);
     setData(data);
   };
   

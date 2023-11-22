@@ -3,7 +3,8 @@ import { Divider } from "@/components/atoms/divider";
 import styles from "./page.module.css";
 
 export default async ({params: {category, id}}: {params: {category: string, id: string}}) => {
-  const {data} = await getUniverities(category, id);
+
+  const data = await getUniverities(category, id);
 
   return (
     <div className="center_div">
