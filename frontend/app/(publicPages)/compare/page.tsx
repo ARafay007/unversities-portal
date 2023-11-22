@@ -6,8 +6,8 @@ export default async () => {
 
   return (
     <div className='center_div'>
-      <h1>Compare University</h1>
-      <UniversityComparision data={data} />
+      {/* <h1>Compare University</h1>
+      <UniversityComparision data={data} /> */}
     </div>
   );
 };
