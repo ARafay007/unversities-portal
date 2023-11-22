@@ -27,7 +27,7 @@ export default () => {
 
   const onSubmit = async () => {
     setIsLoading(true);
-    const {data} = await AdminLogin(loginField);
+    const data = await AdminLogin(loginField);
     if(data.status) setIsCorrentCredentials(true);
     else{
       setIsCorrentCredentials(false);

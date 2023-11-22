@@ -4,7 +4,8 @@ interface loginFields{
 }
 
 export const AdminLogin = async (fields: loginFields) => {
-  const resp = await fetch('/api/admin', {
+  // const resp = await fetch('/api/admin', {
+  const resp = await fetch('https://fine-tan-slug-yoke.cyclic.app/api/admin/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -13,5 +14,6 @@ export const AdminLogin = async (fields: loginFields) => {
   });
 
   const {data} = await resp.json();
+  console.log(data);
   return data;
 }

@@ -45,14 +45,14 @@ export default ({params: {category}}: {params: {category: string}}) => {
 
   const fetchUni = async () => {
     setIsLoading(true);
-    const {data} = await getUniverities(category);
+    const data = await getUniverities(category);
     setUniData(data);
     setIsLoading(false);
   }
 
   const fetchUniByCategoryAndProvince = async (province: string) => {
     setIsLoading(true);
-    const {data} = await getUniverities(category, undefined, province);
+    const data = await getUniverities(category, undefined, province);
     setUniData(data);
     setIsLoading(false);
   }

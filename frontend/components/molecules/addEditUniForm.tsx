@@ -73,7 +73,7 @@ export default ({isEditMode, category, id, router}: {isEditMode: boolean, catego
   }, []);
 
   const getUniversityDetail = async () => {
-    const {data} = await getUniverities(category as string, id as string);
+    const data = await getUniverities(category as string, id as string);
 
     setValue({
       id: data[0]._id,

@@ -21,7 +21,7 @@ interface topUni {
 }
 
 export default async function Home() {
-  const {data} = await topUniversities();
+  const data = await topUniversities();
 
   return (
     <main className={styles.main}>
