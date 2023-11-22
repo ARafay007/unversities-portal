@@ -1,5 +1,5 @@
 export async function POST(req: Request){
-  const resp = await fetch('http://localhost:4321/api/student/registerStudent', {
+  const resp = await fetch(`${process.env.URL}/api/student/registerStudent`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
