@@ -8,13 +8,25 @@ import styles from "./navbar.module.css";
 
 export const Navbar = ({isPublic}: {isPublic: boolean}) => {
   const router = useRouter();
-  const [width, setWidth] = useState(0);
+  const [width, setWidth] = useState(window.innerWidth);
   const [hide, setHide] = useState(false);
 
   useEffect(() => {
-    setWidth(window.innerWidth);
+    const handleWindowSize = ()  =>{
+      setWidth(window.innerWidth);
+    }
+    
+    window.addEventListener('resize', handleWindowSize);
+    
+    return () => {
+      window.removeEventListener('resize', handleWindowSize);
+    };
   }, []);
 
+  if(width > 769 && !hide) {
+    setHide(true);
+  }
+  
   return (
     <nav className={hide ? styles.nav : styles.hide_nav}>
       <div className={styles.caret} onClick={() => setHide(!hide)}>
