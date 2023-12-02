@@ -9,7 +9,7 @@ import styles from "./navbar.module.css";
 export const Navbar = ({isPublic}: {isPublic: boolean}) => {
   const router = useRouter();
   const [width, setWidth] = useState(0);
-  const [hide, setHide] = useState(true);
+  const [hide, setHide] = useState(false);
 
   useEffect(() => {
     setWidth(window.innerWidth);
