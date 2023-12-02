@@ -22,12 +22,14 @@ export const getAllUniverisities = async () => {
 };
 
 export const getUniverities = async (category: string, id?: string | null, province?: string | null) => {
+  // const resp = await fetch(`http://localhost:4321/api/university/getUniversity/${category}?id=${id}&province=${province}`);
   const resp = await fetch(`https://fine-tan-slug-yoke.cyclic.app/api/university/getUniversity/${category}?id=${id}&province=${province}`);
   const {data} = await resp.json();
   return data;
 };
 
 export const topUniversities = async () => {
+  // const resp = await fetch('http://localhost:4321/api/university/topUniversities', {
   const resp = await fetch('https://fine-tan-slug-yoke.cyclic.app/api/university/topUniversities', {
     // next: {revalidate: 3000},
     cache: 'no-store'
