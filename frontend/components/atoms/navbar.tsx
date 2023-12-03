@@ -8,8 +8,8 @@ import styles from "./navbar.module.css";
 
 export const Navbar = ({isPublic}: {isPublic: boolean}) => {
   const router = useRouter();
-  const [width, setWidth] = useState(window.innerWidth);
-  const [hide, setHide] = useState(false);
+  const [width, setWidth] = useState(0);
+  const [hide, setHide] = useState(true);
 
   useEffect(() => {
     const handleWindowSize = ()  =>{
