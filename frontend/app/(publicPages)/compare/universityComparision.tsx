@@ -1,6 +1,6 @@
 'use client';
 import {useState} from 'react';
-import { Dropdown } from '@/components/atoms';
+import { Dropdown, Divider } from '@/components/atoms';
 import styles from './page.module.css';
 
 interface universityList{
@@ -149,6 +149,8 @@ export const UniversityComparision = ({data}: {data: universityList[]}) => {
   return (
     <div className={styles.university_columns}>
       <div className={styles.column}>
+        <h3>Select University</h3>
+        <Divider />
         <Dropdown 
           label="University" 
           list={data.map(uni => uni.name)} 
@@ -176,6 +178,8 @@ export const UniversityComparision = ({data}: {data: universityList[]}) => {
         </div>
       </div>
       <div className={styles.column}>
+        <h3>Select University</h3>
+        <Divider />
         <Dropdown 
           label="University" 
           list={data.map(uni => uni.name)} 
