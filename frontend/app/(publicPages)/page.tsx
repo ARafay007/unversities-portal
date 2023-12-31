@@ -26,7 +26,7 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.main_image}>
-        <h1>Universities in Pakistan</h1>
+        <h1>Education Hub</h1>
         <div>
           <StudentRegister />
         </div>
